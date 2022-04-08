@@ -6,11 +6,27 @@
 
 char username[1024];
 
+// KNOWN BUG: SEGMENTATION FAULT ON INCORRECT USERNAME ENTERED
+
 void setSessionUsername(char *uname) {
     strcpy(username, uname);
     int len = strlen(uname);
     username[len - 1] = '\0';
     return;
+}
+
+int getlines(FILE *fp) {
+    unsigned int lines;
+    char c;
+
+    while (!feof(fp)) {
+        c = fgetc(fp);
+        if (c == '\n')
+            lines++;
+    }
+
+    fseek(fp, 0, SEEK_SET);
+    return lines - 1;
 }
 
 int new() { // Creates a new account to use the program
@@ -49,10 +65,14 @@ int login() { // login to an existing account to use the program
 
     setSessionUsername(buffer);
 
-    while (!feof(fp)) {
+    unsigned int lines = getlines(fp);
+    for (int i = lines; i > 0; i--) {
         if (!strcmp(buffer, fgets(fbuffer, 1024, fp))) {
             break;
         }
+
+        if (i == 1)
+            fseek(fp, 0, SEEK_SET);
     }
 
     printf("PASSWORD: ");
