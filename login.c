@@ -1,3 +1,5 @@
+#define LOGIN
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -44,7 +46,7 @@ int new() { // Creates a new account to use the program
         return 0; // returns 0 for unsuccessful creation of account
     }
 
-    fprintf(login, "%s\n%s\n", username, password);
+    fprintf(login, "%s%s", uname, password);
     fclose(login);
     setSessionUsername(uname);
 
