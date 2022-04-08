@@ -13,6 +13,4 @@ typedef struct {
     int used;
 } array;
 
-#define quietmode 0
-
 #endif

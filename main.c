@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "headers/smartplanner.h"
 
+int quietmode;
 char username[1024];
 
 array savings;
@@ -11,8 +12,23 @@ array investments;
 #include "source/dynamic.c"
 #include "source/init.c"
 
+void config() {
+    FILE *config = fopen("config.txt", "r");
+
+    if (config) {
+        fscanf(config, "quietmode %d\n", &quietmode);
+    }
+
+    if (!quietmode)
+        printf("quietmode is off\n");
+
+    return;
+}
+
 int main() {
     int input;
+
+    config();
 
     printf("\nWould you like to login to an existing account or create a new one?\n");
     printf("1. Log in\n2. Create New\n");
@@ -28,10 +44,13 @@ int main() {
             new();
 
     if (!quietmode)
-        printf("running init system...\n");
+        printf("\nrunning init system...\n");
     init();
+    if (!quietmode)
+        printf("init finished\n");
 
-    printf("Welcome to SmartPlanner, %s!\n", username);
+    printf("\nWelcome to SmartPlanner, %s!\n", username);
 
+    printf("\n");
     return 0;
 }

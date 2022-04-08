@@ -15,6 +15,8 @@ void load(char filename[1024], array *arr) {
         fp = fopen(filename, "w");
         if (!fp)
             printf("FATAL ERROR: Closing Program\n");
+
+        return;
     }
 
     //Parser
@@ -23,6 +25,8 @@ void load(char filename[1024], array *arr) {
         fgets(myAcc.name, 64, fp);
         fscanf(fp, "%f", &myAcc.balance);
         fscanf(fp, "%f", &myAcc.interest);
+        
+        myAcc.name[strlen(myAcc.name) - 1] = '\0';
 
         appendArray(arr, myAcc);
     }
@@ -31,33 +35,39 @@ void load(char filename[1024], array *arr) {
 }
 
 void init() {
-    char sfile[1024] = "savings";
-    char dfile[1024] = "debts";
-    char ifile[1024] = "investments";
+    char sfile[1024] = "data/savings";
+    char dfile[1024] = "data/debts";
+    char ifile[1024] = "data/investments";
 
     if (!quietmode)
-        printf("initializing arrays...\n");
+        printf("\ninitializing arrays...\n");
 
     initArray(&savings, 5);
     initArray(&debts, 5);
     initArray(&investments, 5);
 
     if (!quietmode)
-        printf("finished initializing arrays...\nsetting files for loading...\n");
+        printf("finished initializing arrays...\n\nsetting files for loading...\n");
 
     strcat(sfile, username);
     strcat(dfile, username);
     strcat(ifile, username);
 
+    if (!quietmode) {
+        printf("\nsize of savings = %d\n", savings.size);
+        printf("size of debts = %d\n", debts.size);
+        printf("size of investments = %d\n", investments.size);
+    }
+
     if (!quietmode)
-        printf("finished setting files for loading\nbeginning to load from files...\n");
+        printf("\nfinished setting files for loading\n\nbeginning to load from files...\n");
 
     load(strcat(sfile, ".txt"), &savings);
     load(strcat(dfile, ".txt"), &debts);
     load(strcat(ifile, ".txt"), &investments);
 
     if (!quietmode)
-        printf("finished loading from files\n");
+        printf("\nfinished loading from files\n");
 
 
     return;

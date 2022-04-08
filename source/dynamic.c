@@ -5,7 +5,7 @@
 
 void doubleArray(array *arr) {
     if (!quietmode)
-        printf("doubling array...\n");
+        printf("\ndoubling array...\n");
 
     arr->size *= 2;
     arr->accs = (account *) realloc (arr->accs, arr->size * sizeof(account));
@@ -31,6 +31,9 @@ void appendArray(array *arr, account newAcc) {
 }
 
 void initArray(array *arr, int size) {
+    if (size < 2)
+        size = 2;
+
     arr->size = size;
     arr->accs = (account *) malloc (size * sizeof(account));
 

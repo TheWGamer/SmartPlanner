@@ -10,6 +10,7 @@ void setSessionUsername(char *uname) {
     strcpy(username, uname);
     int len = strlen(uname);
     username[len - 1] = '\0';
+
     return;
 }
 
