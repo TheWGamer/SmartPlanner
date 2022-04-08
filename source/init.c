@@ -40,11 +40,9 @@ void load(char filename[1024], array *arr) { // loads from a given file to a giv
     account myAcc;
     int n = accs(fp);
     for (int i = 0; i < n; i++) {
-        fgets(myAcc.name, 64, fp);
-        fscanf(fp, "%f", &myAcc.balance);
-        fscanf(fp, "%f", &myAcc.interest);
-
-        myAcc.name[strlen(myAcc.name) - 1] = '\0';
+        fscanf(fp, "%s\n", &myAcc.name);
+        fscanf(fp, "%f\n", &myAcc.balance);
+        fscanf(fp, "%f\n", &myAcc.interest);
 
         appendArray(arr, myAcc);
     }
