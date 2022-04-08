@@ -19,7 +19,7 @@ int accs(FILE *fp) { // Counts the number of accoounts in a given file
     }
 
     fseek(fp, 0, SEEK_SET);
-    return (i / 3) + 1;
+    return (i / 3);
 }
 
 void load(char filename[1024], array *arr) { // loads from a given file to a given array in memory
@@ -37,7 +37,8 @@ void load(char filename[1024], array *arr) { // loads from a given file to a giv
         return;
     }
 
-    //Parser
+    // Parser
+    // borked on savings
     account myAcc;
     int n = accs(fp);
     for (int i = 0; i < n; i++) {
@@ -48,6 +49,7 @@ void load(char filename[1024], array *arr) { // loads from a given file to a giv
         appendArray(arr, myAcc);
     }
 
+    fclose(fp);
     return;
 }
 

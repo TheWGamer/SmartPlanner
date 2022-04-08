@@ -14,6 +14,7 @@ array investments;
 #include "source/init.c"
 
 
+
 // UNRESOLVED ISSUE WITH THE PARSER.  I think it has something to do with memory being allocated incorrectly in dynamic.c
 
 
@@ -31,23 +32,16 @@ void config() {
     return;
 }
 
-// Unidentified behavior with investmentsTotal
+// Just totally borked
 void portfolio() { // Lists portfolio information
     float savingsTotal, debtsTotal, investmentsTotal;
-
-    for (int i = 0; i < savings.used; i++)
-        printf("Savings[%d] = %.2f\n", i, savings.accs[i].balance);
-    for (int i = 0; i < debts.used; i++)
-        printf("Debts[%d] = %.2f\n", i, debtsTotal += debts.accs[i].balance);
-    for (int i = 0; i < investments.used; i++)
-        printf("Investments[%d] = %.2f\n", i, investmentsTotal += investments.accs[i].balance);
 
     printf("PORTFOLIO:\n");
     printf("    ASSETS: $%.2f\n", 0.00); // add assets later
     printf("    SAVINGS: $%.2f\n", savingsTotal);
     printf("    DEBTS: $%.2f\n", debtsTotal);
     printf("    INVESTMENTS: $%.2f\n", investmentsTotal);
-    printf("NET WORTH: $%.2f\n", savingsTotal + investmentsTotal - debtsTotal);
+    printf("NET WORTH: $%.2f\n", savingsTotal - debtsTotal + investmentsTotal);
 
     return;
 }
@@ -81,10 +75,16 @@ int main() {
     printf("\nWelcome to SmartPlanner, %s!\n\n", username);
 
     // Main Menu
-    while (1) {
-        portfolio();
-        return 0;
-    }
+    FILE *f = fopen("data/savingsChase.txt", 
+    "r");
+    printf("savingsAccs = %d\n", accs(f));
+    fclose(f);
+    f = fopen("data/debtsChase.txt", "r");
+    printf("savingsAccs = %d\n", accs(f));
+    fclose(f);
+    f = fopen("data/investmentsChase.txt", "r");
+    printf("savingsAccs = %d\n", accs(f));
+    fclose(f);
 
     printf("\n");
     return 0;
