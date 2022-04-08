@@ -3,6 +3,19 @@
 
 #include "../headers/smartplanner.h"
 
+void cleanup(array *arr) {
+    if (!quietmode)
+	printf("\ncleaning up an array...\n");
+
+    arr->size = arr->used;
+    arr->accs = (account *) realloc (arr->accs, arr->size * sizeof(account));
+
+    if (!quietmode)
+	printf("\ncleaned up the array.\n");
+
+    return;
+}
+
 void doubleArray(array *arr) {
     if (!quietmode)
         printf("\ndoubling array...\n");

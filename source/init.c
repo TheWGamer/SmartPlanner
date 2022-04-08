@@ -4,6 +4,23 @@
 
 #include "../headers/smartplanner.h"
 
+// Parser or appendArray is borked
+
+int accs(FILE *fp) {
+    int i;
+    char c;
+
+    while(!feof(fp)) {
+        c = fgetc(fp);
+
+        if (c == '\n')
+            i++;
+    }
+
+    fseek(fp, 0, SEEK_SET);
+    return (i / 3) + 1;
+}
+
 void load(char filename[1024], array *arr) {
     FILE *fp = fopen(filename, "r");
 
@@ -21,11 +38,12 @@ void load(char filename[1024], array *arr) {
 
     //Parser
     account myAcc;
-    while (!feof(fp)) {
+    int n = accs(fp);
+    for (int i = 0; i < n; i++) {
         fgets(myAcc.name, 64, fp);
         fscanf(fp, "%f", &myAcc.balance);
         fscanf(fp, "%f", &myAcc.interest);
-        
+
         myAcc.name[strlen(myAcc.name) - 1] = '\0';
 
         appendArray(arr, myAcc);

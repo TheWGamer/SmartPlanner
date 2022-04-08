@@ -51,6 +51,12 @@ int main() {
 
     printf("\nWelcome to SmartPlanner, %s!\n", username);
 
+    for (int i = 0; i < 5; i++) {
+        printf("\nname[%d] = %s\n", i, debts.accs[i].name);
+        printf("balance[%d] = $%.2f\n", i, debts.accs[i].balance);
+        printf("interest[%d] = %.3f%%\n", i, debts.accs[i].interest * 100);
+    }
+
     printf("\n");
     return 0;
 }
