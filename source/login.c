@@ -6,7 +6,7 @@
 
 // KNOWN BUG: SEGMENTATION FAULT ON INCORRECT USERNAME ENTERED
 
-void setSessionUsername(char *uname) {
+void setSessionUsername(char *uname) { // sets the session username
     strcpy(username, uname);
     int len = strlen(uname);
     username[len - 1] = '\0';
@@ -14,7 +14,7 @@ void setSessionUsername(char *uname) {
     return;
 }
 
-int getlines(FILE *fp) {
+int getlines(FILE *fp) { // get the number of lines in a given file
     unsigned int lines;
     char c;
 

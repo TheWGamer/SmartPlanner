@@ -6,7 +6,7 @@
 
 // Parser or appendArray is borked
 
-int accs(FILE *fp) {
+int accs(FILE *fp) { // Counts the number of accoounts in a given file
     int i;
     char c;
 
@@ -21,7 +21,7 @@ int accs(FILE *fp) {
     return (i / 3) + 1;
 }
 
-void load(char filename[1024], array *arr) {
+void load(char filename[1024], array *arr) { // loads from a given file to a given array in memory
     FILE *fp = fopen(filename, "r");
 
     // Creates new file if unable to open
@@ -52,7 +52,9 @@ void load(char filename[1024], array *arr) {
     return;
 }
 
-void init() {
+// Base function of the init system
+// all member processes of the init system are called from this function
+void init() { // starts init system
     char sfile[1024] = "data/savings";
     char dfile[1024] = "data/debts";
     char ifile[1024] = "data/investments";

@@ -3,7 +3,7 @@
 
 #include "../headers/smartplanner.h"
 
-void cleanup(array *arr) {
+void cleanup(array *arr) { // Cleans up a dynamic array by unallocated unused space
     if (!quietmode)
 	printf("\ncleaning up an array...\n");
 
@@ -16,6 +16,7 @@ void cleanup(array *arr) {
     return;
 }
 
+// Doubles the size of the given dynamic array, called automatically
 void doubleArray(array *arr) {
     if (!quietmode)
         printf("\ndoubling array...\n");
@@ -29,7 +30,7 @@ void doubleArray(array *arr) {
     return;
 }
 
-void appendArray(array *arr, account newAcc) {
+void appendArray(array *arr, account newAcc) { // Call to add a new account to a given dynamic array
     if (arr->size > arr->used) {
         arr->accs[arr->used] = newAcc;
 
@@ -43,7 +44,7 @@ void appendArray(array *arr, account newAcc) {
     return;
 }
 
-void initArray(array *arr, int size) {
+void initArray(array *arr, int size) { // Call to initialize a dynamic array after defining one
     if (size < 2)
         size = 2;
 
