@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "smartplanner.h"
+#include "../headers/smartplanner.h"
 
 void load(char filename[1024], array *arr) {
     FILE *fp = fopen(filename, "r");

@@ -1,10 +1,8 @@
-#define LOGIN
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#include "smartplanner.h"
+#include "../headers/smartplanner.h"
 
 // KNOWN BUG: SEGMENTATION FAULT ON INCORRECT USERNAME ENTERED
 
@@ -38,7 +36,7 @@ int new() { // Creates a new account to use the program
     printf("PASSWORD: ");
     fgets(password, 1024, stdin);
 
-    login = fopen("login.txt", "a+");
+    login = fopen("data/login.txt", "a+");
     if (!login) {
         printf("Unable to save login data!\n");
         return 0; // returns 0 for unsuccessful creation of account
@@ -52,7 +50,7 @@ int new() { // Creates a new account to use the program
 }
 
 int login() { // login to an existing account to use the program
-    FILE *fp = fopen("login.txt", "r");
+    FILE *fp = fopen("data/login.txt", "r");
     char buffer[1024], fbuffer[1024];
 
     if (!fp) {

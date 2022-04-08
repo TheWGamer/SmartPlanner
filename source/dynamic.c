@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "smartplanner.h"
+#include "../headers/smartplanner.h"
 
 void doubleArray(array *arr) {
     if (!quietmode)

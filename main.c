@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "smartplanner.h"
+#include "headers/smartplanner.h"
 
 char username[1024];
 
@@ -7,9 +7,9 @@ array savings;
 array debts;
 array investments;
 
-#include "login.c"
-#include "dynamic.c"
-#include "init.c"
+#include "source/login.c"
+#include "source/dynamic.c"
+#include "source/init.c"
 
 int main() {
     int input;
