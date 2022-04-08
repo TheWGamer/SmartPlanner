@@ -13,6 +13,10 @@ array investments;
 #include "source/dynamic.c"
 #include "source/init.c"
 
+
+// UNRESOLVED ISSUE WITH THE PARSER.  I think it has something to do with memory being allocated incorrectly in dynamic.c
+
+
 // Reads config file for program settings
 void config() {
     FILE *config = fopen("config.dat", "r");
@@ -23,6 +27,27 @@ void config() {
 
     if (!quietmode)
         printf("quietmode is off\n");
+
+    return;
+}
+
+// Unidentified behavior with investmentsTotal
+void portfolio() { // Lists portfolio information
+    float savingsTotal, debtsTotal, investmentsTotal;
+
+    for (int i = 0; i < savings.used; i++)
+        printf("Savings[%d] = %.2f\n", i, savings.accs[i].balance);
+    for (int i = 0; i < debts.used; i++)
+        printf("Debts[%d] = %.2f\n", i, debtsTotal += debts.accs[i].balance);
+    for (int i = 0; i < investments.used; i++)
+        printf("Investments[%d] = %.2f\n", i, investmentsTotal += investments.accs[i].balance);
+
+    printf("PORTFOLIO:\n");
+    printf("    ASSETS: $%.2f\n", 0.00); // add assets later
+    printf("    SAVINGS: $%.2f\n", savingsTotal);
+    printf("    DEBTS: $%.2f\n", debtsTotal);
+    printf("    INVESTMENTS: $%.2f\n", investmentsTotal);
+    printf("NET WORTH: $%.2f\n", savingsTotal + investmentsTotal - debtsTotal);
 
     return;
 }
@@ -53,13 +78,12 @@ int main() {
         printf("init finished\n");
 
 
-    // Main Menu
-    printf("\nWelcome to SmartPlanner, %s!\n", username);
+    printf("\nWelcome to SmartPlanner, %s!\n\n", username);
 
-    for (int i = 0; i < 5; i++) {
-        printf("\nname[%d] = %s\n", i, debts.accs[i].name);
-        printf("balance[%d] = $%.2f\n", i, debts.accs[i].balance);
-        printf("interest[%d] = %.3f%%\n", i, debts.accs[i].interest * 100);;
+    // Main Menu
+    while (1) {
+        portfolio();
+        return 0;
     }
 
     printf("\n");
