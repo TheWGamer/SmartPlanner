@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "smartplanner.h"
+
+char username[1024];
+
+void setSessionUsername(char *uname) {
+    strcpy(username, uname);
+    int len = strlen(uname);
+    username[len - 1] = '\0';
+    return;
+}
+
+int new() { // Creates a new account to use the program
+    char uname[1024], password[1024];
+    FILE *login;
+
+    printf("USERNAME: ");
+    fgets(uname, 1024, stdin);
+    printf("PASSWORD: ");
+    fgets(password, 1024, stdin);
+
+    login = fopen("login.txt", "a+");
+    if (!login) {
+        printf("Unable to save login data!\n");
+        return 0; // returns 0 for unsuccessful creation of account
+    }
+
+    fprintf(login, "%s\n%s\n", username, password);
+    fclose(login);
+    setSessionUsername(uname);
+
+    return 1; // returns 1 for successful creation of account
+}
+
+int login() { // login to an existing account to use the program
+    FILE *fp = fopen("login.txt", "r");
+    char buffer[1024], fbuffer[1024];
+
+    if (!fp) {
+        printf("Unable to find login file.\nCreating new account.\n");
+        return new();
+    }
+
+    printf("USERNAME: ");
+    fgets(buffer, 1024, stdin);
+
+    setSessionUsername(buffer);
+
+    while (!feof(fp)) {
+        if (!strcmp(buffer, fgets(fbuffer, 1024, fp))) {
+            break;
+        }
+    }
+
+    printf("PASSWORD: ");
+    fgets(buffer, 1024, stdin);
+
+    if (strcmp(buffer, fgets(fbuffer, 1024, fp))) {
+        printf("Invalid Login!\n");
+        return 0;
+    }
+    else
+        return 1;
+}
