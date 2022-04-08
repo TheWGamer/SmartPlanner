@@ -13,7 +13,7 @@ array investments;
 #include "source/init.c"
 
 void config() {
-    FILE *config = fopen("config.txt", "r");
+    FILE *config = fopen("config.dat", "r");
 
     if (config) {
         fscanf(config, "quietmode %d\n", &quietmode);
