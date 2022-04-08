@@ -6,8 +6,6 @@
 
 #include "smartplanner.h"
 
-char username[1024];
-
 // KNOWN BUG: SEGMENTATION FAULT ON INCORRECT USERNAME ENTERED
 
 void setSessionUsername(char *uname) {

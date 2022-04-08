@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include "smartplanner.h"
 
+char username[1024];
+
+array savings;
+array debts;
+array investments;
+
 #include "login.c"
+#include "dynamic.c"
 #include "init.c"
 
 int main() {
@@ -20,7 +27,8 @@ int main() {
         else
             new();
 
-    printf("Running init system...\n");
+    if (!quietmode)
+        printf("running init system...\n");
     init();
 
     printf("Welcome to SmartPlanner, %s!\n", username);
