@@ -1,5 +1,5 @@
-#ifndef smartplanner
-#define smartplanner
+#ifndef SMARTPLANNER
+#define SMARTPLANNER
 
 typedef struct {
     char name[64];

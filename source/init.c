@@ -1,10 +1,11 @@
+#ifndef INIT
+#define INIT
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "../headers/smartplanner.h"
-
-// Parser or appendArray is borked
 
 int accs(FILE *fp) { // Counts the number of accoounts in a given file
     int i;
@@ -90,3 +91,5 @@ void init() { // starts init system
 
     return;
 }
+
+#endif

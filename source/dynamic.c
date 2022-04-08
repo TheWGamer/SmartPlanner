@@ -1,3 +1,6 @@
+#ifndef DYNAMIC
+#define DYNAMIC
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -53,3 +56,5 @@ void initArray(array *arr, int size) { // Call to initialize a dynamic array aft
 
     return;
 }
+
+#endif

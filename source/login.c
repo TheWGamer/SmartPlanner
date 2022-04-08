@@ -1,3 +1,6 @@
+#ifndef LOGIN
+#define LOGIN
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -84,3 +87,5 @@ int login() { // login to an existing account to use the program
     else
         return 1;
 }
+
+#endif

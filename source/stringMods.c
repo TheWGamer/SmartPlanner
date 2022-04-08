@@ -1,3 +1,6 @@
+#ifndef STRINGMODS
+#define STRINGMODS
+
 #include <string.h>
 #include <stdio.h>
 
@@ -9,3 +12,5 @@ char *removeChar(char *iString) {
 
     return oString;
 }
+
+#endif
