@@ -75,15 +75,14 @@ int main() {
     printf("\nWelcome to SmartPlanner, %s!\n\n", username);
 
     // Main Menu
-    FILE *f = fopen("data/savingsChase.txt", 
-    "r");
+    FILE *f = fopen("data/savingsChase.txt", "r");
     printf("savingsAccs = %d\n", accs(f));
     fclose(f);
     f = fopen("data/debtsChase.txt", "r");
-    printf("savingsAccs = %d\n", accs(f));
+    printf("debtsAccs = %d\n", accs(f));
     fclose(f);
     f = fopen("data/investmentsChase.txt", "r");
-    printf("savingsAccs = %d\n", accs(f));
+    printf("investmentsAccs = %d\n", accs(f));
     fclose(f);
 
     printf("\n");

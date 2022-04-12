@@ -37,8 +37,7 @@ void load(char filename[1024], array *arr) { // loads from a given file to a giv
         return;
     }
 
-    // Parser
-    // borked on savings
+    // accs() borked
     account myAcc;
     int n = accs(fp);
     for (int i = 0; i < n; i++) {
