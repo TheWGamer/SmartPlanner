@@ -12,6 +12,15 @@
 #include "source//load.c"
 #include "source//arrays.c"
 
+void setMisc() {
+    printf("INCOME: $");
+    scanf("%f", &income); getc(stdin);
+    printf("ASSETS: $");
+    scanf("%f", &assets); getc(stdin);
+
+    return;
+}
+
 int main() {
     int choice;
     bool logged = false;
@@ -46,12 +55,20 @@ int main() {
 
         scanf("%d", &choice); getc(stdin);
         if (choice == 1)
-            accountMenu(&savings, "SAVINGS");
+            setMisc();
         else if (choice == 2)
-            accountMenu(&debts, "DEBTS");
+            accountMenu(&savings, "SAVINGS");
         else if (choice == 3)
+            accountMenu(&debts, "DEBTS");
+        else if (choice == 4)
             accountMenu(&investments, "INVESTMENTS");
-        else if (choice < 4 || choice > 6)
+        else if (choice == 5)
+            projectPortfolio();
+        else if (choice == 6)
+            printf("COMING SOON!\n");
+        else if (choice == 7)
+            break;
+        else
             printf("Invalid Selection! Please try again.\n");
     }
 

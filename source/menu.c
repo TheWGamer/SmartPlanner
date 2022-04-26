@@ -11,6 +11,8 @@ Call accountMenu() to modify a type of account
 #include <string.h>
 
 #include "arrays.c"
+#include "accounts.c"
+#include "project.c"
 
 float income;
 float assets;
@@ -35,20 +37,24 @@ void displayElements() { // basic display for the main menu
     printf("    DEBTS: $%.2f in %d account(s)\n", d, debts.used);
     printf("    INVESTMENTS: $%.2f in %d account(s)\n", i, investments.used);
     printf("NET WORTH: $%.2f\n", s + i + assets - d); // Still needs assets added
+    printf("    VALUE OF ASSETS: $%.2f\n", assets);
 
     printf("\nMENU:\n");
-    printf("1. Savings\n");
-    printf("2. Debts\n");
-    printf("3. Investments\n");
-    printf("4. Project\n");
-    printf("5. Save\n"); // Remember to add #@# to EOF
-    printf("6. Exit\n");
+    printf("1. Set Income and Assets\n");
+    printf("2. Savings\n");
+    printf("3. Debts\n");
+    printf("4. Investments\n");
+    printf("5. Project\n");
+    printf("6. Save\n"); // Remember to add #@# to EOF
+    printf("7. Exit\n");
     printf("Choice: ");
 
     return;
 }
 
 void accountMenu(dynArray *array, char *type) { // Main menu for savings accounts
+    int choice;
+
     while (1) {
         printf("\n%s MENU:\n", type);
         printf("1. List Accounts\n");
@@ -58,10 +64,26 @@ void accountMenu(dynArray *array, char *type) { // Main menu for savings account
         printf("5. Project\n");
         printf("6. Return to Main Menu\n");
 
-        return;
-    }
+        printf("Choice: ");
+        scanf("%d", &choice); getc(stdin);
 
-    return;
+        if (choice == 1) {
+            printf("\n%s ACCOUNTS:\n", type);
+            listAccounts(array);
+        }
+        else if (choice == 2)
+            addAccount(array);
+        else if (choice == 3)
+            editAccount(array);
+        else if (choice == 4)
+            removeAccount(array);
+        else if (choice == 5)
+            project();
+        else if (choice == 6)
+            return;
+        else
+            printf("Invalid selection, please try again!\n");
+    }
 }
 
 #endif

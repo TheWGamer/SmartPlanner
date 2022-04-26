@@ -42,4 +42,10 @@ int getLines(FILE *fp) { // Returns the number of lines in a file that ends with
     return lines;
 }
 
+void addEnd(FILE *fp) { // Adds a custom signature to end of file for future reading
+    fseek(fp, 0, SEEK_END);
+    fprintf(fp, "#@#");
+    return;
+}
+
 #endif

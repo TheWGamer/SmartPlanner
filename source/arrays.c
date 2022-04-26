@@ -17,6 +17,10 @@ dynArray savings;
 dynArray debts;
 dynArray investments;
 
+// Misc Portfolio Data
+float income;
+float assets;
+
 void cleanupArray(dynArray *array) { // Reallocates a given array to only take up as much space as is in use
     array->size = array->used;
     array->array = (account *) realloc (array->array, array->size * sizeof(account));
