@@ -1,3 +1,10 @@
+/*
+This file contains all of the backend for the dynamic arrays used by other parts of the program
+Before an array can be used it has to be defined (this is done globally in this file), then it must be initalized by calling initArray()
+In order to add data to an array, call appendArray(), all dynamic memory allocation is handled automatically
+If you wish to unallocate unused space in arrays, call cleanupArray()
+*/
+
 #ifndef ARRAYS
 #define ARRAYS
 
@@ -10,9 +17,18 @@ dynArray savings;
 dynArray debts;
 dynArray investments;
 
+void cleanupArray(dynArray *array) { // Reallocates a given array to only take up as much space as is in use
+    array->size = array->used;
+    array->array = (account *) realloc (array->array, array->size * sizeof(account));
+
+    return;
+}
+
 void initArray(dynArray *array, unsigned int size) { // Initializes a dynamic array to a specified size
     array->size = size;
     array->array = (account *) malloc (array->size * sizeof(account));
+
+    return;
 }
 
 void init() { // Initializes savings, debts, and investments

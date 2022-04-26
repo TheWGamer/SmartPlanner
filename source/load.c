@@ -1,3 +1,9 @@
+/*
+This file handles all loading when the user first logs in
+MAKE SURE TO CALL init() from "source//arrays.c" BEFORE calling load()
+Entire process is carried out from load()
+*/
+
 #ifndef LOAD
 #define LOAD
 

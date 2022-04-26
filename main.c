@@ -45,7 +45,13 @@ int main() {
         displayElements();
 
         scanf("%d", &choice); getc(stdin);
-        if (choice < 1 || choice > 6)
+        if (choice == 1)
+            accountMenu(&savings, "SAVINGS");
+        else if (choice == 2)
+            accountMenu(&debts, "DEBTS");
+        else if (choice == 3)
+            accountMenu(&investments, "INVESTMENTS");
+        else if (choice < 4 || choice > 6)
             printf("Invalid Selection! Please try again.\n");
     }
 

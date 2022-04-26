@@ -1,7 +1,14 @@
+/*
+This file provides all of the menu and UI for the program
+Call displayElements to show the main menu
+Call accountMenu() to modify a type of account
+*/
+
 #ifndef MENU
 #define MENU
 
 #include <stdio.h>
+#include <string.h>
 
 #include "arrays.c"
 
@@ -37,6 +44,22 @@ void displayElements() { // basic display for the main menu
     printf("5. Save\n"); // Remember to add #@# to EOF
     printf("6. Exit\n");
     printf("Choice: ");
+
+    return;
+}
+
+void accountMenu(dynArray *array, char *type) { // Main menu for savings accounts
+    while (1) {
+        printf("\n%s MENU:\n", type);
+        printf("1. List Accounts\n");
+        printf("2. Add New Account\n");
+        printf("3. Edit Existing Account\n");
+        printf("4. Remove Account\n");
+        printf("5. Project\n");
+        printf("6. Return to Main Menu\n");
+
+        return;
+    }
 
     return;
 }

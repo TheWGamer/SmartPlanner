@@ -1,9 +1,13 @@
+/*
+This file contains backend functions for file manipulations
+*/
+
 #ifndef FILES
 #define FILES
 
 #include <stdio.h>
 
-int getLines(FILE *fp) {
+int getLines(FILE *fp) { // Returns the number of lines in a file that ends with #@#
     char c;
     int lines = 0;
     

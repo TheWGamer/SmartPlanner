@@ -1,3 +1,9 @@
+/*
+This file provides login and account creation functionality
+login() and createAccount() both return 1 when successful, and 0 when unsuccessful
+call getSessionUsername() whenever you need to reference the current user in other parts of the program
+*/
+
 #ifndef LOGIN
 #define LOGIN
 
@@ -20,6 +26,13 @@ void setSessionUsername(char *username) { // Sets the username for the current s
     for (int i = 0; i < n; i++)
         sessionUsername[i] = username[i];
     
+    // Unneccessary, but it makes things a little nicer
+    if (!strcmp(username, "\n")) {
+        char temp[8] = "testuser";
+        for (int i = 0; i < 8; i++)
+            sessionUsername[i] = temp[i];
+    }
+
     return;
 }
 
@@ -100,6 +113,8 @@ int createAccount() {
 
     if (!strcmp(password, echo)) {
         FILE *fp = fopen("data//logins.txt", "a+");
+        if (!fp)
+            return 0;
 
         setSessionUsername(username);
 
