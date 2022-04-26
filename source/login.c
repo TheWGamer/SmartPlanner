@@ -66,8 +66,54 @@ int login() {
     return 1;
 }
 
+int usernameAvailable(char *username) {
+    bool isAvailable = true;
+
+    FILE *fp = fopen("data//logins.txt", "r");
+    if (!fp)
+        return 1;
+    
+    char buffer[LOGINSIZE];
+    while (!feof(fp)) {
+        fgets(buffer, LOGINSIZE, fp);
+
+        if (!strcmp(buffer, username))
+            isAvailable = false;
+    }
+
+    if (!isAvailable)
+        printf("Invalid Username, please try another one!\n");
+
+    fclose(fp);
+    return isAvailable;
+}
+
 int createAccount() {
-    return 1;
+    char username[LOGINSIZE], password[LOGINSIZE], echo[LOGINSIZE];
+
+    do {
+        printf("USERNAME: "); fgets(username, LOGINSIZE, stdin);
+    }while (!usernameAvailable(username));
+
+    printf("PASSWORD: "); fgets(password, LOGINSIZE, stdin);
+    printf("CONFIRM PASSWORD: "); fgets(echo, LOGINSIZE, stdin);
+
+    if (!strcmp(password, echo)) {
+        FILE *fp = fopen("data//logins.txt", "a+");
+
+        setSessionUsername(username);
+
+        username[strlen(username) - 1] = '\0';
+        password[strlen(password) - 1] = '\0';
+
+        fprintf(fp, "%s\n", username);
+        fprintf(fp, "%s\n", password);
+
+        fclose(fp);
+        return 1;
+    }
+
+    return 0;
 }
 
 #endif
