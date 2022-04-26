@@ -1,90 +1,56 @@
+// Standard Headers
 #include <stdio.h>
-#include "headers/smartplanner.h"
+#include <stdbool.h>
+#include <stdlib.h>
 
-int quietmode; // edit in config.dat
-char username[1024]; // session username
+// Custom Headers
+#include "headers//smartplanner.h"
 
-// Dynamic arrays of accounts
-array savings;
-array debts;
-array investments;
+// Custom Source Files
+#include "source//login.c"
+#include "source//menu.c"
+#include "source//load.c"
+#include "source//arrays.c"
 
-#include "source/login.c"
-#include "source/dynamic.c"
-#include "source/init.c"
+int main() {
+    int choice;
+    bool logged = false;
 
+    // Login
+    while (!logged) {
+        printf("1. Log In\n2. Create new Account\n");
+        printf("Choice: ");
+        scanf("%d", &choice); getc(stdin);
 
-
-// UNRESOLVED ISSUE WITH THE PARSER.  I think it has something to do with memory being allocated incorrectly in dynamic.c
-
-
-// Reads config file for program settings
-void config() {
-    FILE *config = fopen("config.dat", "r");
-
-    if (config) {
-        fscanf(config, "quietmode %d\n", &quietmode);
+        switch (choice) {
+            case 1:
+                logged = login();
+                break;
+            case 2:
+                logged = createAccount();
+                break;
+            default:
+                printf("Invalid input, please try again.\n");
+        }
     }
 
-    if (!quietmode)
-        printf("quietmode is off\n");
+    // Initialization and Loading
+    init();
+    load();
 
-    return;
-}
+    printf("Savings[0] name = %s\n", savings.array[0].name);
+    printf("savings used = %d\n", savings.used);
 
-// Just totally borked
-void portfolio() { // Lists portfolio information
-    float savingsTotal, debtsTotal, investmentsTotal;
+    // Main Loop
+    printf("\nWelcome to SmartPlanner, %s!\n", getSessionUsername());
+    
+    while (1) {
+        displayElements();
 
-    printf("PORTFOLIO:\n");
-    printf("    ASSETS: $%.2f\n", 0.00); // add assets later
-    printf("    SAVINGS: $%.2f\n", savingsTotal);
-    printf("    DEBTS: $%.2f\n", debtsTotal);
-    printf("    INVESTMENTS: $%.2f\n", investmentsTotal);
-    printf("NET WORTH: $%.2f\n", savingsTotal - debtsTotal + investmentsTotal);
+        scanf("%d", &choice); getc(stdin);
+        if (choice < 1 || choice > 6)
+            printf("Invalid Selection! Please try again.\n");
+    }
 
-    return;
-}
-
-// main loop
-int main() {
-    int input;
-
-    config();
-
-    printf("\nWould you like to login to an existing account or create a new one?\n");
-    printf("1. Log in\n2. Create New\n");
-        printf("Selection: ");
-        scanf("%d", &input); getc(stdin);
-        if (input == 1) {
-            if (!login()) { // Closes program if invalid login
-                printf("Closing Program...\n");
-                exit(1);
-            }
-        }
-        else // Creates new account if login is not selected
-            new();
-
-    if (!quietmode)
-        printf("\nrunning init system...\n");
-    init(); //Begins the init system
-    if (!quietmode)
-        printf("init finished\n");
-
-
-    printf("\nWelcome to SmartPlanner, %s!\n\n", username);
-
-    // Main Menu
-    FILE *f = fopen("data/savingsChase.txt", "r");
-    printf("savingsAccs = %d\n", accs(f));
-    fclose(f);
-    f = fopen("data/debtsChase.txt", "r");
-    printf("debtsAccs = %d\n", accs(f));
-    fclose(f);
-    f = fopen("data/investmentsChase.txt", "r");
-    printf("investmentsAccs = %d\n", accs(f));
-    fclose(f);
-
-    printf("\n");
     return 0;
 }

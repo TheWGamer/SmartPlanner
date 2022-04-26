@@ -1,6 +1,8 @@
 #ifndef SMARTPLANNER
 #define SMARTPLANNER
 
+#define LOGINSIZE 1024
+
 typedef struct {
     char name[64];
     float balance;
@@ -8,9 +10,9 @@ typedef struct {
 } account;
 
 typedef struct {
-    account *accs;
+    account *array;
     int size;
     int used;
-} array;
+} dynArray;
 
 #endif
