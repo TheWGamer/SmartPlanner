@@ -40,6 +40,9 @@ void init() { // Initializes savings, debts, and investments
 }
 
 void doubleArray(dynArray *array) { // Called automatically, doubles the size of an array when there is not enough room for new elements
+    if (array->size <= 0)
+        array->size = 1;
+    
     array->size *= 2;
     array->array = (account *) realloc (array->array, array->size * sizeof(account));
 }
