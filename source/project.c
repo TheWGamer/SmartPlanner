@@ -60,7 +60,7 @@ float project(dynArray *array, float years, char *type) { // Projects the value 
         printf("    Compounding Frequency: %d time(s) annually\n", array->array[i].compound);
         printf("    Monthly Contribution $%.2f\n", array->array[i].contribution);
 
-        totalPayment += array->array[i].contribution;
+        totalPayment += (float) (array->array[i].contribution * ((int) array->array[i].compound * years));
     }
     free(projections);
 
