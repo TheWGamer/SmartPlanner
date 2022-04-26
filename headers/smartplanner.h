@@ -7,6 +7,7 @@ typedef struct {
     char name[64];
     float balance;
     float interest;
+    int compound;
     float contribution;
 } account;
 

@@ -12,6 +12,15 @@ This file contains functions for manipulating the contents of the savings, debts
 
 #include "arrays.c"
 
+float getTotalBalance(dynArray *array) {
+    float total = 0;
+
+    for (int i = 0; i < array->used; i++)
+        total += array->array[i].balance;
+    
+    return total;
+}
+
 void addAccount(dynArray *array) { // Adds a new account in memory
     account myAccount;
 
@@ -19,7 +28,8 @@ void addAccount(dynArray *array) { // Adds a new account in memory
     printf("    NAME: "); fgets(myAccount.name, 64, stdin);
     printf("    BALANCE: $"); scanf("%f", &myAccount.balance); getc(stdin);
     printf("    INTEREST RATE: "); scanf("%f", &myAccount.interest); getc(stdin);
-    printf("    MONTHLY CONTRIBUTION (+ or -): "); scanf("%f", &myAccount.contribution); getc(stdin);
+    printf("    COMPOUNDING FREQUENCY: "); scanf("%d", &myAccount.compound); getc(stdin);
+    printf("    CONTRIBUTION PER PERIOD (+ or -): "); scanf("%f", &myAccount.contribution); getc(stdin);
 
     // Adjustments before committing to array
     myAccount.name[strlen(myAccount.name) - 1] = '\0';
@@ -35,13 +45,14 @@ void listAccounts(dynArray *array) { // Lists all of the accounts in an array
         printf("Account #%d - %s:\n", i + 1, array->array[i].name);
         printf("    Balance: $%.2f\n", array->array[i].balance);
         printf("    Interest Rate: %.2f%%\n", array->array[i].interest * 100);
-        printf("    Monthly Contribution: $%.2f\n", array->array[i].contribution);
+        printf("    Compounding Frequency: %d time(s) annually\n", array->array[i].compound);
+        printf("    Contribution per Period: $%.2f\n", array->array[i].contribution);
     }
 
     return;
 }
 
-int selectAccount(dynArray *array) { // Prompts the user to select an account from given array
+int selectAccount(dynArray *array) { // Prompts the user to select an account from given array | returns index of the account
     int index;
     
     do {
@@ -70,8 +81,9 @@ void editAccount(dynArray *array) { // Edits an existing account's information
         printf("1. Name\n");
         printf("2. Balance\n");
         printf("3. Interest Rate\n");
-        printf("4. Monthly Contribution\n");
-        printf("5. Cancel\n");
+        printf("4. Compounding Frequency\n");
+        printf("5. Contribution per Period\n");
+        printf("6. Cancel\n");
         printf("Choice: ");
 
         scanf("%d", &choice); getc(stdin);
@@ -94,11 +106,16 @@ void editAccount(dynArray *array) { // Edits an existing account's information
             return;
         }
         else if (choice == 4) {
-            printf("NEW MONTHLY CONTRIBUTION: $");
+            printf("NEW COMPOUNDING FREQUENCY: ");
+            scanf("%d", &array->array[index].compound); getc(stdin);
+            return;
+        }
+        else if (choice == 5) {
+            printf("NEW CONTRIBUTION PER PERIOD: $");
             scanf("%f", &array->array[index].contribution); getc(stdin);
             return;
         }
-        else if (choice == 5)
+        else if (choice == 6)
             return;
         else
             printf("Invalid Selection, please try again!\n");

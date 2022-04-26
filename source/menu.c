@@ -17,15 +17,6 @@ Call accountMenu() to modify a type of account
 float income;
 float assets;
 
-float getTotalBalance(dynArray *array) {
-    float total = 0;
-
-    for (int i = 0; i < array->used; i++)
-        total += array->array[i].balance;
-    
-    return total;
-}
-
 void displayElements() { // basic display for the main menu
     float s, d, i;
     s = getTotalBalance(&savings);
@@ -78,7 +69,7 @@ void accountMenu(dynArray *array, char *type) { // Main menu for savings account
         else if (choice == 4)
             removeAccount(array);
         else if (choice == 5)
-            project();
+            project(array, setYears(), type);
         else if (choice == 6)
             return;
         else

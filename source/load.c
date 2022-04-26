@@ -21,7 +21,7 @@ void parser(char *file, dynArray *array) {
     if (!fp)
         return;
 
-    int lines = getLines(fp) / 3;
+    int lines = getLines(fp) / 5;
     if (!lines)
         return;
     fseek(fp, 0, SEEK_SET);
@@ -34,6 +34,7 @@ void parser(char *file, dynArray *array) {
         myAcc.name[strlen(myAcc.name) - 1] = '\0'; // Gets rid of newline
         fscanf(fp, "%f\n", &myAcc.balance); // Read balance from file
         fscanf(fp, "%f\n", &myAcc.interest); // Read interest from file
+        fscanf(fp, "%d\n", &myAcc.compound); // Reads compounding frequency from file
         fscanf(fp, "%f\n", &myAcc.contribution); // Reads monthly contribution from file
 
         appendArray(array, myAcc);
