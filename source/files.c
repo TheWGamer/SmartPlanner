@@ -1,5 +1,7 @@
 /*
 This file contains backend functions for file manipulations
+I cannot for the life of me figure out a bug on linux machines that causes counting newlines in a "while(!feof(fp))" loop to cause getLines to return
+excessively high numbers
 */
 
 #ifndef FILES
