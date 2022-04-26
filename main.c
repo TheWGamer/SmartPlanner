@@ -38,9 +38,6 @@ int main() {
     init();
     load();
 
-    printf("Savings[0] name = %s\n", savings.array[0].name);
-    printf("savings used = %d\n", savings.used);
-
     // Main Loop
     printf("\nWelcome to SmartPlanner, %s!\n", getSessionUsername());
     
