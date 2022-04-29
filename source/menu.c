@@ -24,11 +24,11 @@ void displayElements() { // basic display for the main menu
     i = getTotalBalance(&investments);
 
     printf("\nPORTFOLIO:\n");
-    printf("    SAVINGS: $%.2f in %d account(s)\n", s, savings.used);
-    printf("    DEBTS: $%.2f in %d account(s)\n", d, debts.used);
-    printf("    INVESTMENTS: $%.2f in %d account(s)\n", i, investments.used);
-    printf("NET WORTH: $%.2f\n", s + i + assets - d); // Still needs assets added
-    printf("    VALUE OF ASSETS: $%.2f\n", assets);
+    printf("    SAVINGS: $%.2lf in %d account(s)\n", s, savings.used);
+    printf("    DEBTS: $%.2lf in %d account(s)\n", d, debts.used);
+    printf("    INVESTMENTS: $%.2lf in %d account(s)\n", i, investments.used);
+    printf("NET WORTH: $%.2lf\n", s + i + assets - d); // Still needs assets added
+    printf("    VALUE OF ASSETS: $%.2lf\n", assets);
 
     printf("\nMENU:\n");
     printf("1. Set Income and Assets\n");

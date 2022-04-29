@@ -43,10 +43,10 @@ void addAccount(dynArray *array) { // Adds a new account in memory
 void listAccounts(dynArray *array) { // Lists all of the accounts in an array
     for (int i = 0; i < array->used; i++) {
         printf("Account #%d - %s:\n", i + 1, array->array[i].name);
-        printf("    Balance: $%.2f\n", array->array[i].balance);
-        printf("    Interest Rate: %.2f%%\n", array->array[i].interest * 100);
+        printf("    Balance: $%.2lf\n", array->array[i].balance);
+        printf("    Interest Rate: %.2lf%%\n", array->array[i].interest * 100);
         printf("    Compounding Frequency: %d time(s) annually\n", array->array[i].compound);
-        printf("    Contribution per Period: $%.2f\n", array->array[i].contribution);
+        printf("    Contribution per Period: $%.2lf\n", array->array[i].contribution);
     }
 
     return;

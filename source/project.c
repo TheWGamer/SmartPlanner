@@ -53,9 +53,9 @@ double project(dynArray *array, double years, char *type) { // Projects the valu
         }
 
         printf("Account #%d -- %s\n", i + 1, array->array[i].name);
-        printf("    CURRENT BALANCE: $%.2f\n", array->array[i].balance);
-        printf("    PROJECTED BALANCE: $%.2f\n", projection[i]);
-        printf("Change due to interest: $%.2f\n", accDelta);
+        printf("    CURRENT BALANCE: $%.2lf\n", array->array[i].balance);
+        printf("    PROJECTED BALANCE: $%.2lf\n", projection[i]);
+        printf("Change due to interest: $%.2lf\n", accDelta);
 
         totalDelta += accDelta; // total change due to interest for all accounts for specified time in years
         totalProjection += projection[i]; // total projected balance at specified time in years
@@ -65,10 +65,10 @@ double project(dynArray *array, double years, char *type) { // Projects the valu
 
     double currentTotal = getTotalBalance(array);
     printf("\nTOTAL:\n");
-    printf("    Current Combined Balance on All '%s' Accounts: $%.2f\n", type, currentTotal);
-    printf("    Combined Balance on All '%s' Accounts after %.1f years: $%.2f\n", type, years, totalProjection);
-    printf("Net Change due to Interest: $%.2f\n", totalDelta);
-    printf("Net Balance Change: $%.2f\n", totalProjection - currentTotal);
+    printf("    Current Combined Balance on All '%s' Accounts: $%.2lf\n", type, currentTotal);
+    printf("    Combined Balance on All '%s' Accounts after %.1lf years: $%.2lf\n", type, years, totalProjection);
+    printf("Net Change due to Interest: $%.2lf\n", totalDelta);
+    printf("Net Balance Change: $%.2lf\n", totalProjection - currentTotal);
 
     return totalProjection;
 }
@@ -78,9 +78,9 @@ void projectPortfolio() {
     double sTotal = project(&savings, years, "SAVINGS"), dTotal = project(&debts, years, "DEBTS"), iTotal = project(&investments, years, "INVESTMENTS");
 
     double projectedPortfolio = sTotal + iTotal - dTotal + assets, currentPortfolio = getTotalBalance(&savings) + getTotalBalance(&investments) + assets - getTotalBalance(&debts);
-    printf("\nProjected Net Worth in %.1f year(s): $%.2f\n", years, projectedPortfolio);
-    printf("Current Net Worth: $%.2f\n", currentPortfolio);
-    printf("    Estimated Total Change: $%.2f\n", projectedPortfolio - currentPortfolio);
+    printf("\nProjected Net Worth in %.1lf year(s): $%.2lf\n", years, projectedPortfolio);
+    printf("Current Net Worth: $%.2lf\n", currentPortfolio);
+    printf("    Estimated Total Change: $%.2lf\n", projectedPortfolio - currentPortfolio);
 
     return;
 }
