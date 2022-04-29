@@ -14,9 +14,9 @@
 
 void setMisc() {
     printf("INCOME: $");
-    scanf("%f", &income); getc(stdin);
+    scanf("%lf", &income); getc(stdin);
     printf("ASSETS: $");
-    scanf("%f", &assets); getc(stdin);
+    scanf("%lf", &assets); getc(stdin);
 
     return;
 }

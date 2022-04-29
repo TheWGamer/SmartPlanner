@@ -12,13 +12,13 @@ This file contains functions for projecting both an account type and an entire p
 
 #include "accounts.c"
 
-float setYears() { // Sets the number of years to be projected into
-    float years;
+double setYears() { // Sets the number of years to be projected into
+    double years;
     
     printf("How far into the future would you like to project?\n");
     printf("Year(s): ");
 
-    scanf("%f", &years); getc(stdin);
+    scanf("%lf", &years); getc(stdin);
     if (years <= 0) {
         printf("Invalid selection!\n");
         return 0;
@@ -27,59 +27,60 @@ float setYears() { // Sets the number of years to be projected into
     return years;
 }
 
-float futureBalance(account acc, float years) { // Returns the projected balance on an account in the specified number of years
-    float total = acc.balance;
-
-    // Iterates over each period for an account in the specified time applying the compounding interest formula
-    for (int i = 0; i < (int) years * acc.compound; i++) {
-        total += acc.contribution;
-        total *=  (1 + (acc.interest / acc.compound));
-    }
-
-    return total;
-}
-
-float project(dynArray *array, float years, char *type) { // Projects the value of all accounts in a given category after a certain number of years
+double project(dynArray *array, double years, char *type) { // Projects the value of all accounts in a given category after a certain number of years
     printf("\n%s:\n", type);
     
+    // Are there accounts of this type?
     if (array->used < 1) {
         printf("No Accounts of this Type!\n");
         return 0;
     }
 
-    float *projections = (float *) malloc (array->used * sizeof(float)), total = 0, totalPayment = 0;
+    double *projection = (double *) malloc (array->used * sizeof(double)); // projected balances
+    double delta, totalDelta, totalProjection;
 
-    printf("Projected value of account(s) in %.1f years:\n", years);
-    for (int i = 0; i < array->used; i++) {
-        projections[i] = futureBalance(array->array[i], years);
-        total += projections[i];
-        
-        printf("Account #%d - %s:\n", i + 1, array->array[i].name);
-        printf("    Balance: $%.2f\n", projections[i]);
-        printf("    Interest Rate: %.2f%%\n", array->array[i].interest * 100);
-        printf("    Compounding Frequency: %d time(s) annually\n", array->array[i].compound);
-        printf("    Monthly Contribution $%.2f\n", array->array[i].contribution);
+    for (int i = 0; i < array->used; i++) { // Iterates over each account
+        double accDelta = 0;
+        projection[i] = array->array[i].balance;
 
-        totalPayment += (float) (array->array[i].contribution * ((int) array->array[i].compound * years));
+        for (int n = 0; n < (int) array->array[i].compound * years; n++) { // Calculates data for individual accounts
+            projection[i] += array->array[i].contribution;
+
+            delta = projection[i] * (array->array[i].interest / array->array[i].compound); // Change due to interest each period
+            accDelta += delta; // Total change due to interest for account for specified time in years
+
+            projection[i] += delta;
+        }
+
+        printf("Account #%d -- %s\n", i + 1, array->array[i].name);
+        printf("    CURRENT BALANCE: $%.2f\n", array->array[i].balance);
+        printf("    PROJECTED BALANCE: $%.2f\n", projection[i]);
+        printf("Change due to interest: $%.2f\n", accDelta);
+
+        totalDelta += accDelta; // total change due to interest for all accounts for specified time in years
+        totalProjection += projection[i]; // total projected balance at specified time in years
     }
-    free(projections);
 
-    float temp = getTotalBalance(array);    
-    printf("\nCombined Balance on All Accounts after %.1f year(s): $%.2f\n", years, total);
-    printf("Current Combined Balance on All Accounts: $%.2f\n", temp);
-    printf("    Change due to Interest: $%.2f\n", total - totalPayment - temp);
+    free(projection);
 
-    return total;
+    double currentTotal = getTotalBalance(array);
+    printf("\nTOTAL:\n");
+    printf("    Current Combined Balance on All '%s' Accounts: $%.2f\n", type, currentTotal);
+    printf("    Combined Balance on All '%s' Accounts after %.1f years: $%.2f\n", type, years, totalProjection);
+    printf("Net Change due to Interest: $%.2f\n", totalDelta);
+    printf("Net Balance Change: $%.2f\n", totalProjection - currentTotal);
+
+    return totalProjection;
 }
 
 void projectPortfolio() {
-    float years = setYears();
-    float sTotal = project(&savings, years, "SAVINGS"), dTotal = project(&debts, years, "DEBTS"), iTotal = project(&investments, years, "INVESTMENTS");
+    double years = setYears();
+    double sTotal = project(&savings, years, "SAVINGS"), dTotal = project(&debts, years, "DEBTS"), iTotal = project(&investments, years, "INVESTMENTS");
 
-    float projectedPortfolio = sTotal + iTotal - dTotal + assets, temp = getTotalBalance(&savings) + getTotalBalance(&investments) + assets - getTotalBalance(&debts);
+    double projectedPortfolio = sTotal + iTotal - dTotal + assets, currentPortfolio = getTotalBalance(&savings) + getTotalBalance(&investments) + assets - getTotalBalance(&debts);
     printf("\nProjected Net Worth in %.1f year(s): $%.2f\n", years, projectedPortfolio);
-    printf("Current Net Worth: $%.2f\n", temp);
-    printf("    Estimated Total Change: $%.2f\n", projectedPortfolio - temp);
+    printf("Current Net Worth: $%.2f\n", currentPortfolio);
+    printf("    Estimated Total Change: $%.2f\n", projectedPortfolio - currentPortfolio);
 
     return;
 }

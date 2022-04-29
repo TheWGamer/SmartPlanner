@@ -14,11 +14,11 @@ Call accountMenu() to modify a type of account
 #include "accounts.c"
 #include "project.c"
 
-float income;
-float assets;
+double income;
+double assets;
 
 void displayElements() { // basic display for the main menu
-    float s, d, i;
+    double s, d, i;
     s = getTotalBalance(&savings);
     d = getTotalBalance(&debts);
     i = getTotalBalance(&investments);

@@ -12,8 +12,8 @@ This file contains functions for manipulating the contents of the savings, debts
 
 #include "arrays.c"
 
-float getTotalBalance(dynArray *array) {
-    float total = 0;
+double getTotalBalance(dynArray *array) {
+    double total = 0;
 
     for (int i = 0; i < array->used; i++)
         total += array->array[i].balance;
@@ -26,10 +26,10 @@ void addAccount(dynArray *array) { // Adds a new account in memory
 
     printf("New Account:\n");
     printf("    NAME: "); fgets(myAccount.name, 64, stdin);
-    printf("    BALANCE: $"); scanf("%f", &myAccount.balance); getc(stdin);
-    printf("    INTEREST RATE: "); scanf("%f", &myAccount.interest); getc(stdin);
+    printf("    BALANCE: $"); scanf("%lf", &myAccount.balance); getc(stdin);
+    printf("    INTEREST RATE: "); scanf("%lf", &myAccount.interest); getc(stdin);
     printf("    COMPOUNDING FREQUENCY: "); scanf("%d", &myAccount.compound); getc(stdin);
-    printf("    CONTRIBUTION PER PERIOD (+ or -): "); scanf("%f", &myAccount.contribution); getc(stdin);
+    printf("    CONTRIBUTION PER PERIOD (+ or -): "); scanf("%lf", &myAccount.contribution); getc(stdin);
 
     // Adjustments before committing to array
     myAccount.name[strlen(myAccount.name) - 1] = '\0';
@@ -96,12 +96,12 @@ void editAccount(dynArray *array) { // Edits an existing account's information
         }
         else if (choice == 2) {
             printf("NEW BALANCE: $");
-            scanf("%f", &array->array[index].balance); getc(stdin);
+            scanf("%lf", &array->array[index].balance); getc(stdin);
             return;
         }
         else if (choice == 3) {
             printf("NEW INTEREST RATE: ");
-            scanf("%f", &array->array[index].interest); getc(stdin);
+            scanf("%lf", &array->array[index].interest); getc(stdin);
             array->array[index].interest /= 100;
             return;
         }
@@ -112,7 +112,7 @@ void editAccount(dynArray *array) { // Edits an existing account's information
         }
         else if (choice == 5) {
             printf("NEW CONTRIBUTION PER PERIOD: $");
-            scanf("%f", &array->array[index].contribution); getc(stdin);
+            scanf("%lf", &array->array[index].contribution); getc(stdin);
             return;
         }
         else if (choice == 6)

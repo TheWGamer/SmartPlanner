@@ -32,10 +32,10 @@ void parser(char *file, dynArray *array) {
     for (int i = 0; i < lines; i++) {
         fgets(myAcc.name, 64, fp); // Read name from file
         myAcc.name[strlen(myAcc.name) - 1] = '\0'; // Gets rid of newline
-        fscanf(fp, "%f\n", &myAcc.balance); // Read balance from file
-        fscanf(fp, "%f\n", &myAcc.interest); // Read interest from file
+        fscanf(fp, "%lf\n", &myAcc.balance); // Read balance from file
+        fscanf(fp, "%lf\n", &myAcc.interest); // Read interest from file
         fscanf(fp, "%d\n", &myAcc.compound); // Reads compounding frequency from file
-        fscanf(fp, "%f\n", &myAcc.contribution); // Reads monthly contribution from file
+        fscanf(fp, "%lf\n", &myAcc.contribution); // Reads monthly contribution from file
 
         appendArray(array, myAcc);
     }
@@ -49,8 +49,8 @@ void parseMisc(char *file) { // Parses misc file containing info like income and
     if (!fp)
         return;
     
-    fscanf(fp, "%f\n", &income);
-    fscanf(fp, "%f\n", &assets);
+    fscanf(fp, "%lf\n", &income);
+    fscanf(fp, "%lf\n", &assets);
 
     fclose(fp);
     return;

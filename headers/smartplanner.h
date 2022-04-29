@@ -5,10 +5,10 @@
 
 typedef struct {
     char name[64];
-    float balance;
-    float interest;
+    double balance;
+    double interest;
     int compound;
-    float contribution;
+    double contribution;
 } account;
 
 typedef struct {
