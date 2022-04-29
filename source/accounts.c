@@ -72,6 +72,11 @@ int selectAccount(dynArray *array) { // Prompts the user to select an account fr
 }
 
 void editAccount(dynArray *array) { // Edits an existing account's information
+    if (array->used < 1) {
+        printf("No accounts to edit!\n");
+        return;
+    }
+    
     int index, choice;
 
     index = selectAccount(array);
@@ -123,6 +128,11 @@ void editAccount(dynArray *array) { // Edits an existing account's information
 }
 
 void removeAccount(dynArray *array) { // Removes an account from memory
+    if (array->used < 1) {
+        printf("No accounts to remove!\n");
+        return;
+    }
+    
     int index; char choice;
     index = selectAccount(array);
 

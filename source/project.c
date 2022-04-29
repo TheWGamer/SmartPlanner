@@ -1,5 +1,6 @@
 /*
 This file contains functions for projecting both an account type and an entire portfolio into the future
+Partial years still need to be taken into account, haven't thought of an elegant solution yet...
 */
 
 #ifndef PROJECT
@@ -45,6 +46,8 @@ double project(dynArray *array, double years, char *type) { // Projects the valu
 
         for (int n = 0; n < (int) array->array[i].compound * years; n++) { // Calculates data for individual accounts
             projection[i] += array->array[i].contribution;
+            if (projection[i] < 0)
+                projection[i] = 0;
 
             delta = projection[i] * (array->array[i].interest / array->array[i].compound); // Change due to interest each period
             accDelta += delta; // Total change due to interest for account for specified time in years

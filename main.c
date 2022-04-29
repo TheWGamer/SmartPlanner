@@ -11,6 +11,7 @@
 #include "source//menu.c"
 #include "source//load.c"
 #include "source//arrays.c"
+#include "source//save.c"
 
 void setMisc() {
     printf("INCOME: $");
@@ -64,12 +65,16 @@ int main() {
             accountMenu(&investments, "INVESTMENTS");
         else if (choice == 5)
             projectPortfolio();
-        else if (choice == 6)
-            printf("COMING SOON!\n");
+        else if (choice == 6) {
+            if (!save())
+                printf("Unable to save data!");
+            else
+                printf("Data saved successfully!");
+        }
         else if (choice == 7)
             break;
         else
-            printf("Invalid Selection! Please try again.\n");
+            printf("Invalid selection! Please try again.\n");
     }
 
     return 0;

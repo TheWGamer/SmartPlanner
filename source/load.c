@@ -28,7 +28,6 @@ void parser(char *file, dynArray *array) {
 
     account myAcc;
 
-    // FINALLY F**KING WORKS!
     for (int i = 0; i < lines; i++) {
         fgets(myAcc.name, 64, fp); // Read name from file
         myAcc.name[strlen(myAcc.name) - 1] = '\0'; // Gets rid of newline
@@ -71,7 +70,7 @@ void load() { // Loads data from user specific files into memory
     parser(path[1], &debts);
     parser(path[2], &investments);
     parseMisc(path[3]);
-    
+
     return;
 }
 

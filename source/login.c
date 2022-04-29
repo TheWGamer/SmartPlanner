@@ -111,6 +111,8 @@ int createAccount() {
     printf("PASSWORD: "); fgets(password, LOGINSIZE, stdin);
     printf("CONFIRM PASSWORD: "); fgets(echo, LOGINSIZE, stdin);
 
+    mkfs();
+
     if (!strcmp(password, echo)) {
         FILE *fp = fopen("data//logins.txt", "a+");
         if (!fp)
