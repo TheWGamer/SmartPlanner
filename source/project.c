@@ -8,6 +8,7 @@ Partial years still need to be taken into account, haven't thought of an elegant
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "..//headers//smartplanner.h"
 
@@ -38,22 +39,39 @@ double project(dynArray *array, double years, char *type) { // Projects the valu
     }
 
     double *projection = (double *) malloc (array->used * sizeof(double)); // projected balances
-    double delta, totalDelta, totalProjection;
+    double delta = 0, totalDelta = 0, totalProjection = 0;
+
+    
 
     for (int i = 0; i < array->used; i++) { // Iterates over each account
         double accDelta = 0;
         projection[i] = array->array[i].balance;
 
-        for (int n = 0; n < (int) array->array[i].compound * years; n++) { // Calculates data for individual accounts
+        for (int n = 1; n < floor(array->array[i].compound * years); n++) { // Calculates data for individual accounts
             projection[i] += array->array[i].contribution;
-            if (projection[i] < 0)
+            if (projection[i] < 0) { // Partial Years with Debts
+                projection[i] -= array->array[i].contribution;
+
+                delta = projection[i] * (array->array[i].interest / array->array[i].compound);
+                accDelta += delta;
+
                 projection[i] = 0;
+            }
 
             delta = projection[i] * (array->array[i].interest / array->array[i].compound); // Change due to interest each period
             accDelta += delta; // Total change due to interest for account for specified time in years
 
             projection[i] += delta;
         }
+
+        // Partial Years
+        projection[i] += array->array[i].contribution * (years - floor(years));
+        if (projection[i] < 0)
+            projection[i] = 0;
+        delta = projection[i] * (array->array[i].interest / array->array[i].compound);
+        accDelta += delta;
+        projection[i] += delta;
+
 
         printf("Account #%d -- %s\n", i + 1, array->array[i].name);
         printf("    CURRENT BALANCE: $%.2lf\n", array->array[i].balance);
@@ -81,7 +99,7 @@ void projectPortfolio() {
     double sTotal = project(&savings, years, "SAVINGS"), dTotal = project(&debts, years, "DEBTS"), iTotal = project(&investments, years, "INVESTMENTS");
 
     double projectedPortfolio = sTotal + iTotal - dTotal + assets, currentPortfolio = getTotalBalance(&savings) + getTotalBalance(&investments) + assets - getTotalBalance(&debts);
-    printf("\nProjected Net Worth in %.1lf year(s): $%.2lf\n", years, projectedPortfolio);
+    printf("\n\nProjected Net Worth in %.1lf year(s): $%.2lf\n", years, projectedPortfolio);
     printf("Current Net Worth: $%.2lf\n", currentPortfolio);
     printf("    Estimated Total Change: $%.2lf\n", projectedPortfolio - currentPortfolio);
 

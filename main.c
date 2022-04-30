@@ -67,9 +67,9 @@ int main() {
             projectPortfolio();
         else if (choice == 6) {
             if (!save())
-                printf("Unable to save data!");
+                printf("\nUnable to save data!\n");
             else
-                printf("Data saved successfully!");
+                printf("\nData saved successfully!\n");
         }
         else if (choice == 7)
             break;
